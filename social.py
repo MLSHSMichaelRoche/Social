@@ -6,7 +6,7 @@ conn = sqlite3.connect('OscurDeletesShit.db')
 cursor = conn.cursor()
 
 
-def CreateStudetTable():
+def CreateStudetTable() -> None:
     cursor.execute('DROP TABLE IF EXISTS Student')
 
     studentTable = """CREATE TABLE Student(
@@ -18,20 +18,20 @@ def CreateStudetTable():
     cursor.execute(studentTable)
     conn.commit()
 
-def AddStudent(firstName, lastName):
+def AddStudent(firstName: str, lastName: str) -> None:
     cursor.execute("INSERT INTO Student(FirstName, LastName) VALUES('" + firstName + "','" + lastName + "')")
     conn.commit()
 
-def ListRecords(TableName):
+def ListRecords(TableName: str) -> None:
     print('Records in ' + TableName)
     for row in cursor.execute("SELECT * FROM " + TableName):
         print(row)
 
-def DeleteRecord(TableName, ID):
+def DeleteRecord(TableName: str, ID: int) -> None:
     cursor.execute("DELETE FROM " + TableName + " WHERE " + TableName + "ID=" + ID)
     conn.commit()
 
-def UpdateField(TableName, ID, FieldName, NewValue, DataType):
+def UpdateField(TableName: str, ID: int, FieldName: str, NewValue, DataType: str) -> None:
     sql = "UPDATE " + TableName + " SET " + FieldName + "="
     if DataType == 's':
         sql = sql + "'" + NewValue + "'"
